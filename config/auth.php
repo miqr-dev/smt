@@ -67,15 +67,57 @@ return [
     'users' => [
       'driver' => 'ldap',
       'model' => LdapRecord\Models\ActiveDirectory\User::class,
-      'rules' => [],
-      'scopes' => [],
+      'rules' => [
+        App\Ldap\Rules\onlyVerwaltungs::class
+      ],
+      'scopes' => [
+        App\Ldap\Scopes\VerwaltungsScope::class
+      ],
       'database' => [
         'model' => App\Models\User::class,
         'sync_passwords' => false,
         'sync_attributes' => [
-          'name' => 'cn',
+          'name' => 'sn',             // 1 last name 
+          'firstname' => 'givenName',   //first name 
+          'title' => 'personalTitle', //
+          'username' => 'samaccountname',
+          'position' => 'title',     //Tätigkeit 
+          'description' => 'description',
+          'department' => 'department',
+          'office' => 'physicalDeliveryOfficeName', //büro
+          'info' => 'info',
+          'postalcode' => 'postalCode',
+          'state' => 'st',
+          'street' => 'streetAddress',
+          'location' => 'l',
+          'tel' => 'telephoneNumber',
+          'telephone_private' => 'otherHomePhone',
+          'mobile' => 'mobile',
           'email' => 'mail',
+          'email_privat' => 'url', //must be added to migration
+          'fax' => 'facsimileTelephoneNumber', //must be added to migration
         ],
+        'sync_existing' => [
+          'name' => 'sn',             // 1 last name 
+          'firstname' => 'givenName',   //first name 
+          'title' => 'personalTitle', //
+          'username' => 'samaccountname',
+          'position' => 'title',     //Tätigkeit 
+          'description' => 'description',
+          'department' => 'department',
+          'office' => 'physicalDeliveryOfficeName', //büro
+          'info' => 'info',
+          'postalcode' => 'postalCode',
+          'state' => 'st',
+          'street' => 'streetAddress',
+          'location' => 'l',
+          'tel' => 'telephoneNumber',
+          'telephone_private' => 'otherHomePhone',
+          'mobile' => 'mobile',
+          'email' => 'mail',
+          'email_privat' => 'url', //must be added to migration
+          'fax' => 'facsimileTelephoneNumber', //must be added to migration
+        ]
       ],
     ],
 
