@@ -1,17 +1,23 @@
 models:
-models:
-  City:
+  Region:
     name: string
+    timestamps: true
     softDeletes: true
     relationships:
-      hasMany: Location
+      hasMany: City
+
+  City:
+    name: string
+    timestamps: true
+    softDeletes: true
+    relationships:
+      hasMany: 'User, Location'
+      belongsTo: Region
 
   Location:
     name: string
-    telephone: string
-    fax: string
-    email: string
-    city_id: id:foreign
+    city_id: id:city
+    timestamps: true
     softDeletes: true
     relationships:
       belongsTo: City
@@ -19,9 +25,22 @@ models:
 
   Room:
     name: string
-    alt_name: string nullable
-    isClassroom: boolean default:0
-    location_id: id:foreign
+    alt_name: string
+    floor: string
+    timestamps: true
     softDeletes: true
     relationships:
       belongsTo: Location
+
+  Termination:
+    name: string
+    location: string
+    occupation: string
+    note: text
+    exit: date
+    softDeletes: true
+    timestamps: true
+    relationships:
+      belongsTo: User
+
+seeders: Region, City, Location, Room

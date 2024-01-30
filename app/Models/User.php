@@ -3,13 +3,14 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use LdapRecord\Laravel\Auth\LdapAuthenticatable;
+use Illuminate\Database\Eloquent\Relations\HasOne;
+use LdapRecord\Laravel\Auth\AuthenticatesWithLdap;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
-use Laravel\Sanctum\HasApiTokens;
-use LdapRecord\Laravel\Auth\LdapAuthenticatable;
-use LdapRecord\Laravel\Auth\AuthenticatesWithLdap;
-use Illuminate\Database\Eloquent\SoftDeletes;
 
 class User extends Authenticatable implements LdapAuthenticatable
 {
@@ -23,11 +24,11 @@ class User extends Authenticatable implements LdapAuthenticatable
   protected $fillable = [
     'name',
     'email',
-    'password',           
-    'firstname',   
+    'password',
+    'firstname',
     'title',
     'username',
-    'position',    
+    'position',
     'description',
     'department',
     'office',
@@ -40,7 +41,7 @@ class User extends Authenticatable implements LdapAuthenticatable
     'telephone_private',
     'mobile',
     'email_privat',
-    'fax', 
+    'fax',
   ];
 
   /**
@@ -56,25 +57,34 @@ class User extends Authenticatable implements LdapAuthenticatable
   protected $casts = [
     'email_verified_at' => 'datetime',
     'password' => 'hashed',
-    'name' => '',             
-    // 'firstname' => '',   
-    // 'title' => '', 
-    // 'username' => '',
-    // 'position' => '',     
-    // 'description' => '',
-    // 'department' => '',
-    // 'office' => '', 
-    // 'info' => '',
-    // 'postalcode' => '',
-    // 'state' => '',
-    // 'street' => '',
-    // 'location' => '',
-    // 'tel' => '',
-    // 'telephone_private' => '',
-    // 'mobile' => '',
-    // 'email' => '',
-    // 'email_privat' => '', 
-    // 'fax' => '', 
-
+    'name' => 'string',
+    'firstname' => 'string',
+    'title' => 'string',
+    'username' => 'string',
+    'position' => 'string',
+    'description' => 'string',
+    'department' => 'string',
+    'office' => 'string',
+    'info' => 'string',
+    'postalcode' => 'string',
+    'state' => 'string',
+    'street' => 'string',
+    'location' => 'string',
+    'tel' => 'string',
+    'telephone_private' => 'string',
+    'mobile' => 'string',
+    'email' => 'string',
+    'email_privat' => 'string',
+    'fax' => 'string',
   ];
+
+  public function getFullNameAttribute()
+  {
+    return $this->firstname . ' ' . $this->name;
+  }
+
+  public function user(): HasOne
+  {
+    return $this->hasOne(Termination::class);
+  }
 }
