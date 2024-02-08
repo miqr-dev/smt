@@ -2,10 +2,12 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Filament\Forms\Components\Select;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Filament\Forms\Components\TextInput;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Room extends Model
 {
@@ -32,6 +34,27 @@ class Room extends Model
         'id' => 'integer',
         'location_id' => 'integer',
     ];
+
+    public static function getForm($locationId = null): array
+    {
+      return [
+        TextInput::make('name')
+          ->required()
+          ->maxLength(255),
+        TextInput::make('alt_name')
+          ->required()
+          ->maxLength(255),
+        TextInput::make('floor')
+          ->required()
+          ->maxLength(255),
+        Select::make('location_id')
+        ->hidden(function () use ($locationId) {
+          return $locationId !== null;
+        })
+          ->relationship('location', 'name')
+          ->required(),
+      ];
+    }
 
     public function location(): BelongsTo
     {

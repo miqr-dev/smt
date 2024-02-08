@@ -4,14 +4,20 @@ namespace Database\Seeders;
 
 use App\Models\Region;
 use Illuminate\Database\Seeder;
+use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 class RegionSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     */
     public function run(): void
     {
-        Region::factory()->count(5)->create();
+      $regions = [
+            ["id" => 1, "name" => "Thüringen"],
+            ["id" => 2, "name" => "Sachsen"],
+            ["id" => 3, "name" => "Berlin"],
+        ];
+
+        foreach ($regions as $region) {
+            Region::create($region);
+        }
     }
 }

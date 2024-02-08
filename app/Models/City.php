@@ -2,11 +2,13 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Filament\Forms\Components\Select;
+use Filament\Forms\Components\TextInput;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class City extends Model
 {
@@ -31,6 +33,18 @@ class City extends Model
         'id' => 'integer',
         'region_id' => 'integer',
     ];
+
+    public static function getForm(): array
+    {
+      return [
+        TextInput::make('name')
+          ->required()
+          ->maxLength(255),
+        Select::make('region_id')
+          ->relationship('region', 'name')
+          ->required(),
+      ];
+    }
 
     public function users(): HasMany
     {

@@ -78,7 +78,8 @@ return [
         'sync_passwords' => false,
         'sync_attributes' => [
           'name' => 'sn',             // 1 last name 
-          'firstname' => 'givenName',   //first name 
+          'firstname' => 'givenName', //first name
+          'fullname' => 'cn',         // fullname
           'title' => 'personalTitle', //
           'username' => 'samaccountname',
           'position' => 'title',     //Tätigkeit 
@@ -99,7 +100,8 @@ return [
         ],
         'sync_existing' => [
           'name' => 'sn',             // 1 last name 
-          'firstname' => 'givenName',   //first name 
+          'firstname' => 'givenName',
+          'fullname' => 'cn',   //first name 
           'title' => 'personalTitle', //
           'username' => 'samaccountname',
           'position' => 'title',     //Tätigkeit 
