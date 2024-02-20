@@ -1,27 +1,19 @@
 created:
-    - database/factories/RegionFactory.php
-    - database/factories/CityFactory.php
-    - database/factories/LocationFactory.php
-    - database/factories/RoomFactory.php
-    - database/factories/TerminationFactory.php
-    - database/migrations/2024_01_29_162938_create_regions_table.php
-    - database/migrations/2024_01_29_162939_create_cities_table.php
-    - database/migrations/2024_01_29_162940_create_locations_table.php
-    - database/migrations/2024_01_29_162941_create_rooms_table.php
-    - database/migrations/2024_01_29_162942_create_terminations_table.php
-    - app/Models/Region.php
-    - app/Models/City.php
-    - app/Models/Location.php
-    - app/Models/Room.php
-    - app/Models/Termination.php
-    - database/seeders/RegionSeeder.php
-    - database/seeders/CitySeeder.php
-    - database/seeders/LocationSeeder.php
-    - database/seeders/RoomSeeder.php
+    - database/factories/PeripheriFactory.php
+    - database/factories/PeripheriRequestFactory.php
+    - database/factories/PeripheriRequestItemFactory.php
+    - database/factories/TicketFactory.php
+    - database/migrations/2024_02_19_092540_create_peripheris_table.php
+    - database/migrations/2024_02_19_092541_create_peripheri_requests_table.php
+    - database/migrations/2024_02_19_092542_create_peripheri_request_items_table.php
+    - database/migrations/2024_02_19_092543_create_tickets_table.php
+    - app/Models/Peripheri.php
+    - app/Models/PeripheriRequest.php
+    - app/Models/PeripheriRequestItem.php
+    - app/Models/Ticket.php
+    - database/seeders/PeripheriSeeder.php
 models:
-    User: { name: string, email: string, email_verified_at: 'datetime nullable', password: string, remember_token: 'string:100 nullable', guid: 'string nullable', domain: 'string nullable' }
-    Region: { name: string, timestamps: timestamps, softdeletes: softDeletes, relationships: { hasMany: City } }
-    City: { name: string, timestamps: timestamps, softdeletes: softDeletes, relationships: { hasMany: 'User, Location', belongsTo: Region } }
-    Location: { name: string, city_id: 'id:city', timestamps: timestamps, softdeletes: softDeletes, relationships: { belongsTo: City, hasMany: Room } }
-    Room: { name: string, alt_name: string, floor: string, timestamps: timestamps, softdeletes: softDeletes, relationships: { belongsTo: Location } }
-    Termination: {note: text, exit: date, softdeletes: softDeletes, timestamps: timestamps, relationships: { belongsTo: User } }
+    Peripheri: { name: string, description: 'text nullable', timestamps: timestamps, softdeletes: softDeletes, relationships: { hasMany: PeripheriRequestItem } }
+    PeripheriRequest: { timestamps: timestamps, softdeletes: softDeletes, relationships: { morphTo: ticketable, hasMany: PeripheriRequestItem } }
+    PeripheriRequestItem: { quantity: integer, timestamps: timestamps, softdeletes: softDeletes, relationships: { belongsTo: 'Peripheri, PeripheriRequest' } }
+    Ticket: { status: string, priority: string, onLocation: boolean, timestamps: timestamps, softdeletes: softDeletes, relationships: { morphMany: 'PeripheriRequest, ticketable' } }

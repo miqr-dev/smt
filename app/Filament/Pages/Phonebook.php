@@ -33,7 +33,7 @@ Select::make('selectedUserId')
     })
     ->searchable()
     ->preload()
-    ->reactive()
+    ->live()
     ->afterStateUpdated(fn ($state) => $this->selectedUserId = $state),
     ];
   }

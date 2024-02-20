@@ -1,46 +1,33 @@
 models:
-  Region:
+  Peripheri:
     name: string
+    description: text nullable
     timestamps: true
     softDeletes: true
     relationships:
-      hasMany: City
+      hasMany: PeripheriRequestItem
 
-  City:
-    name: string
+  PeripheriRequest:
     timestamps: true
     softDeletes: true
     relationships:
-      hasMany: 'User, Location'
-      belongsTo: Region
+      morphTo: ticketable
+      hasMany: PeripheriRequestItem
 
-  Location:
-    name: string
-    city_id: id:city
+  PeripheriRequestItem:
+    quantity: integer
     timestamps: true
     softDeletes: true
     relationships:
-      belongsTo: City
-      hasMany: Room
+      belongsTo: Peripheri, PeripheriRequest
 
-  Room:
-    name: string
-    alt_name: string
-    floor: string
+  Ticket:
+    status: string
+    priority: string
+    onLocation: boolean
     timestamps: true
     softDeletes: true
     relationships:
-      belongsTo: Location
+      morphMany: PeripheriRequest, ticketable
 
-  Termination:
-    name: string
-    location: string
-    occupation: string
-    note: text
-    exit: date
-    softDeletes: true
-    timestamps: true
-    relationships:
-      belongsTo: User
-
-seeders: Region, City, Location, Room
+seeders: Peripheri
