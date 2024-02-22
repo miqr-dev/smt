@@ -7,8 +7,9 @@ use Laravel\Sanctum\HasApiTokens;
 use Filament\Forms\Components\Select;
 use Spatie\Permission\Traits\HasRoles;
 use Filament\Forms\Components\TextInput;
-use Filament\Forms\Components\FileUpload;
 use Illuminate\Notifications\Notifiable;
+use LdapRecord\Models\Relations\HasMany;
+use Filament\Forms\Components\FileUpload;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use LdapRecord\Laravel\Auth\LdapAuthenticatable;
 use Illuminate\Database\Eloquent\Relations\HasOne;
@@ -22,11 +23,6 @@ class User extends Authenticatable implements LdapAuthenticatable
 {
   use HasApiTokens, HasFactory, Notifiable, AuthenticatesWithLdap, SoftDeletes, HasRoles, HasPanelShield;
 
-  /**
-   * The attributes that are mass assignable.
-   *
-   * @var array<int, string>
-   */
   protected $fillable = [
     'fullname',
     'name',
@@ -92,6 +88,11 @@ class User extends Authenticatable implements LdapAuthenticatable
   public function user(): HasOne
   {
     return $this->hasOne(Termination::class);
+  }
+
+    public function ticketSubmitter(): HasMany
+  {
+    return $this->HasMany(Ticket::class, 'submitter_id')->withTrashed();
   }
 
   public static function getForm(): array

@@ -39,4 +39,18 @@ class PeripheriRequest extends Model
   {
     return $this->belongsTo(Room::class);
   }
+
+  protected $appends = ['itemsCount'];
+
+  public function getItemsCountAttribute()
+  {
+    return $this->peripheriRequestItems->count();
+  }
+  public function getItemsDetailsAttribute()
+  {
+    return $this->peripheriRequestItems->load('peripheri')->map(function ($item) {
+      $peripheriName = $item->peripheri ? $item->peripheri->name : 'N/A';
+      return "{$peripheriName} -> {$item->quantity}";
+    })->join(' || ');
+  }
 }

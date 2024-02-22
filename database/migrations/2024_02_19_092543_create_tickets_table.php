@@ -17,7 +17,7 @@ return new class extends Migration
       $table->string('status');
       $table->string('priority');
       $table->boolean('onLocation');
-      $table->foreignId('submitter');
+      $table->foreignId('submitter_id');
       $table->timestamps();
       $table->softDeletes();
     });

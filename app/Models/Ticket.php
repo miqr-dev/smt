@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Ticket extends Model
 {
@@ -17,6 +18,7 @@ class Ticket extends Model
 
   protected $casts = [
     'id' => 'integer',
+    'submitter_id' => 'integer',
     'onLocation' => 'boolean',
     'status' => TicketStatus::class,
     'priority' => TicketPriority::class,
@@ -33,15 +35,8 @@ class Ticket extends Model
     return $this->morphMany(Ticketable::class, 'ticketableable');
   }
 
-  public function ticketSubmitter()
+  public function ticketSubmitter(): BelongsTo
   {
-    return $this->belongsTo('App\Models\User', 'submitter', 'id')->withTrashed();
-  }
-
-  public function getPeripheriRequestItemsAttribute()
-  {
-    return $this->peripheriRequests->flatMap(function ($peripheriRequest) {
-      return $peripheriRequest->peripheriRequestItems;
-    });
+    return $this->belongsTo(User::class, 'submitter_id')->withTrashed();
   }
 }
