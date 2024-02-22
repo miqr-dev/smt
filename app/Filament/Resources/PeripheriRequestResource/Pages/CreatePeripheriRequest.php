@@ -23,7 +23,7 @@ class CreatePeripheriRequest extends CreateRecord
     try {
       // Create the Ticket first
       $ticket = Ticket::create([
-        'submitter' => Auth::user()->id,
+        'submitter_id' => Auth::user()->id,
         'status' => 'Nicht begonnen',
         'priority' => 'Normal',
         'type' => 'Peripheri Anfrage',

@@ -9,10 +9,11 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Parallax\FilamentComments\Models\Traits\HasFilamentComments;
 
 class Ticket extends Model
 {
-  use HasFactory, SoftDeletes;
+  use HasFactory, SoftDeletes, HasFilamentComments;
 
   protected $guarded = [];
 
