@@ -7,18 +7,21 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Peripheri extends Model
+class Hardware extends Model
 {
     use HasFactory, SoftDeletes;
     protected $fillable = [
         'name',
         'description',
+        'isPublic',
     ];
     protected $casts = [
         'id' => 'integer',
+        'isPublic' => 'boolean',
     ];
-    public function peripheriRequestItems(): HasMany
+
+    public function hardwareRequestItems(): HasMany
     {
-        return $this->hasMany(PeripheriRequestItem::class);
+        return $this->hasMany(HardwareRequestItem::class);
     }
 }

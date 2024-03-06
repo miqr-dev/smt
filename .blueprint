@@ -1,19 +1,15 @@
 created:
-    - database/factories/PeripheriFactory.php
-    - database/factories/PeripheriRequestFactory.php
-    - database/factories/PeripheriRequestItemFactory.php
-    - database/factories/TicketFactory.php
-    - database/migrations/2024_02_19_092540_create_peripheris_table.php
-    - database/migrations/2024_02_19_092541_create_peripheri_requests_table.php
-    - database/migrations/2024_02_19_092542_create_peripheri_request_items_table.php
-    - database/migrations/2024_02_19_092543_create_tickets_table.php
-    - app/Models/Peripheri.php
-    - app/Models/PeripheriRequest.php
-    - app/Models/PeripheriRequestItem.php
-    - app/Models/Ticket.php
-    - database/seeders/PeripheriSeeder.php
+    - database/factories/HardwareFactory.php
+    - database/factories/HardwareRequestFactory.php
+    - database/factories/HardwareRequestItemFactory.php
+    - database/migrations/2024_02_22_123121_create_hardware_table.php
+    - database/migrations/2024_02_22_123122_create_hardware_requests_table.php
+    - database/migrations/2024_02_22_123123_create_hardware_request_items_table.php
+    - app/Models/Hardware.php
+    - app/Models/HardwareRequest.php
+    - app/Models/HardwareRequestItem.php
+    - database/seeders/HardwareSeeder.php
 models:
-    Peripheri: { name: string, description: 'text nullable', timestamps: timestamps, softdeletes: softDeletes, relationships: { hasMany: PeripheriRequestItem } }
-    PeripheriRequest: { timestamps: timestamps, softdeletes: softDeletes, relationships: { morphTo: ticketable, hasMany: PeripheriRequestItem } }
-    PeripheriRequestItem: { quantity: integer, timestamps: timestamps, softdeletes: softDeletes, relationships: { belongsTo: 'Peripheri, PeripheriRequest' } }
-    Ticket: { status: string, priority: string, onLocation: boolean, timestamps: timestamps, softdeletes: softDeletes, relationships: { morphMany: 'PeripheriRequest, ticketable' } }
+    Hardware: { name: string, description: 'text nullable', isPublic: 'boolean nullable default:true', timestamps: timestamps, softdeletes: softDeletes, relationships: { hasMany: HardwareRequestItem } }
+    HardwareRequest: { timestamps: timestamps, softdeletes: softDeletes, relationships: { morphTo: ticketable, hasMany: HardwareRequestItem } }
+    HardwareRequestItem: { quantity: integer, timestamps: timestamps, softdeletes: softDeletes, relationships: { belongsTo: 'Hardware, HardwareRequest' } }

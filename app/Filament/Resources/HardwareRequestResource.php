@@ -2,22 +2,20 @@
 
 namespace App\Filament\Resources;
 
+use App\Filament\Resources\HardwareRequestResource\Pages;
+use App\Filament\Resources\HardwareRequestResource\RelationManagers;
+use App\Models\HardwareRequest;
 use Filament\Forms;
-use Filament\Tables;
-use App\Models\Location;
 use Filament\Forms\Form;
-use App\Models\Peripheri;
-use Filament\Tables\Table;
-use App\Models\PeripheriRequest;
 use Filament\Resources\Resource;
+use Filament\Tables;
+use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
-use App\Filament\Resources\PeripheriRequestResource\Pages;
-use App\Filament\Resources\PeripheriRequestResource\RelationManagers;
 
-class PeripheriRequestResource extends Resource
+class HardwareRequestResource extends Resource
 {
-  protected static ?string $model = PeripheriRequest::class;
+  protected static ?string $model = HardwareRequest::class;
 
   protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
@@ -64,12 +62,12 @@ class PeripheriRequestResource extends Resource
               ]),
             Forms\Components\Grid::make(1) // This creates another single column for the repeater on the right
               ->schema([
-                Forms\Components\Repeater::make('peripheriRequestItems')
-                  ->relationship('peripheriRequestItems')
+                Forms\Components\Repeater::make('hardwareRequestItems')
+                  ->relationship('hardwareRequestItems')
                   ->schema([
-                    Forms\Components\Select::make('peripheri_id')
-                      ->label('Peripheri')
-                      ->options(\App\Models\Peripheri::query()->pluck('name', 'id'))
+                    Forms\Components\Select::make('hardware_id')
+                      ->label('hardware')
+                      ->options(\App\Models\Hardware::query()->where('isPublic', true)->pluck('name', 'id'))
                       ->searchable()
                       ->required(),
                     Forms\Components\TextInput::make('quantity')
@@ -86,8 +84,6 @@ class PeripheriRequestResource extends Resource
           ->columns(4) // Adjust the number of columns in the grid to your preference
       ]);
   }
-
-
 
   public static function table(Table $table): Table
   {
@@ -134,9 +130,9 @@ class PeripheriRequestResource extends Resource
   public static function getPages(): array
   {
     return [
-      'index' => Pages\ListPeripheriRequests::route('/'),
-      'create' => Pages\CreatePeripheriRequest::route('/create'),
-      'edit' => Pages\EditPeripheriRequest::route('/{record}/edit'),
+      'index' => Pages\ListHardwareRequests::route('/'),
+      'create' => Pages\CreateHardwareRequest::route('/create'),
+      'edit' => Pages\EditHardwareRequest::route('/{record}/edit'),
     ];
   }
 }

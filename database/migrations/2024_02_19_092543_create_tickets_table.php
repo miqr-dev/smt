@@ -18,6 +18,9 @@ return new class extends Migration
       $table->string('priority');
       $table->boolean('onLocation');
       $table->foreignId('submitter_id');
+      $table->foreignId('assignedTo_id');
+      $table->foreignId('done_by');
+      $table->text('it_notes');
       $table->timestamps();
       $table->softDeletes();
     });

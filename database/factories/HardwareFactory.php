@@ -4,16 +4,16 @@ namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
-use App\Models\Ticket;
+use App\Models\Hardware;
 
-class TicketFactory extends Factory
+class HardwareFactory extends Factory
 {
     /**
      * The name of the factory's corresponding model.
      *
      * @var string
      */
-    protected $model = Ticket::class;
+    protected $model = Hardware::class;
 
     /**
      * Define the model's default state.
@@ -21,7 +21,9 @@ class TicketFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'name' => $this->faker->name(),
+            'description' => $this->faker->text(),
+            'isPublic' => $this->faker->boolean(),
         ];
     }
 }

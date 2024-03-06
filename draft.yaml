@@ -1,33 +1,25 @@
 models:
-  Peripheri:
+  Hardware:
     name: string
     description: text nullable
+    isPublic: boolean nullable default:true
     timestamps: true
     softDeletes: true
     relationships:
-      hasMany: PeripheriRequestItem
+      hasMany: HardwareRequestItem
 
-  PeripheriRequest:
+  HardwareRequest:
     timestamps: true
     softDeletes: true
     relationships:
       morphTo: ticketable
-      hasMany: PeripheriRequestItem
+      hasMany: HardwareRequestItem
 
-  PeripheriRequestItem:
+  HardwareRequestItem:
     quantity: integer
     timestamps: true
     softDeletes: true
     relationships:
-      belongsTo: Peripheri, PeripheriRequest
+      belongsTo: Hardware, HardwareRequest
 
-  Ticket:
-    status: string
-    priority: string
-    onLocation: boolean
-    timestamps: true
-    softDeletes: true
-    relationships:
-      morphMany: PeripheriRequest, ticketable
-
-seeders: Peripheri
+seeders: Hardware

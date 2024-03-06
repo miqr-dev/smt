@@ -4,16 +4,16 @@ namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
-use App\Models\Ticket;
+use App\Models\HardwareRequest;
 
-class TicketFactory extends Factory
+class HardwareRequestFactory extends Factory
 {
     /**
      * The name of the factory's corresponding model.
      *
      * @var string
      */
-    protected $model = Ticket::class;
+    protected $model = HardwareRequest::class;
 
     /**
      * Define the model's default state.

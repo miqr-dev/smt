@@ -40,4 +40,9 @@ class Ticket extends Model
   {
     return $this->belongsTo(User::class, 'submitter_id')->withTrashed();
   }
+
+  public function hardwareRequests(): MorphMany
+  {
+    return $this->morphMany(HardwareRequest::class, 'ticketable');
+  }
 }

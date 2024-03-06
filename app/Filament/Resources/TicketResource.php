@@ -97,6 +97,8 @@ class TicketResource extends Resource
       ->columns([
         Tables\Columns\TextColumn::make('ticketSubmitter.full_name')
           ->sortable(),
+        Tables\Columns\TextColumn::make('type')
+          ->sortable(),
         Tables\Columns\TextColumn::make('status')
           ->badge()
           ->sortable()
@@ -145,6 +147,7 @@ class TicketResource extends Resource
   {
     return [
       RelationManagers\PeripheriRequestsRelationManager::class,
+      RelationManagers\HardwareRequestsRelationManager::class,
     ];
   }
 
